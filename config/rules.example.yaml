@@ -1,0 +1,94 @@
+# ============================================================
+# CONTRACT SCANNER — RULES CONFIGURATION (EXAMPLE)
+# Copy this file to rules.yaml and customize for your playbook
+# rules.yaml is excluded from git (.gitignore)
+# ============================================================
+
+# --- METADATA EXTRACTION ---
+metadata:
+  parties_keywords: ["between", "entered into by", "agreement between"]
+  date_keywords: ["dated", "effective date", "as of"]
+  governing_law_keywords: ["governed by", "governing law", "laws of"]
+  jurisdiction_keywords: ["jurisdiction", "courts of", "competent court"]
+  notice_keywords: ["days' notice", "days notice", "written notice"]
+  duration_keywords: ["term", "initial term", "duration", "period of"]
+  renewal_keywords: ["auto-renewal", "automatically renew", "evergreen"]
+
+# --- REQUIRED CLAUSES (flag if missing) ---
+required_clauses:
+  - name: "Limitation of Liability"
+    keywords: ["limitation of liability", "limit of liability", "liability cap", "aggregate liability"]
+  - name: "Indemnification"
+    keywords: ["indemnif", "hold harmless", "defend"]
+  - name: "Confidentiality"
+    keywords: ["confidential", "non-disclosure", "proprietary information"]
+  - name: "Data Protection / GDPR"
+    keywords: ["data protection", "personal data", "GDPR", "data processing", "DPA"]
+  - name: "Termination"
+    keywords: ["terminat", "cancell"]
+  - name: "Governing Law"
+    keywords: ["governed by", "governing law"]
+  - name: "Dispute Resolution"
+    keywords: ["dispute", "arbitration", "mediation", "litigation"]
+
+# --- RISK SCORING RULES ---
+# Each rule: search pattern in clause text → assign RED / YELLOW / GREEN
+risk_rules:
+
+  limitation_of_liability:
+    - pattern: "unlimited liability"
+      score: RED
+      comment: "Unlimited liability — unacceptable, must negotiate cap"
+    - pattern: "shall not be limited"
+      score: RED
+      comment: "Unlimited liability language detected"
+    - pattern: "direct damages only"
+      score: YELLOW
+      comment: "Cap covers direct damages only — verify carve-outs"
+    - pattern: "fees paid in the"
+      score: GREEN
+      comment: "Cap tied to fees paid — market standard for SaaS"
+
+  indemnification:
+    - pattern: "sole cost and expense"
+      score: YELLOW
+      comment: "One-sided indemnification language — check if reciprocal"
+    - pattern: "indemnify.*harmless.*from any"
+      score: RED
+      comment: "Broad indemnification scope — needs carve-out for own negligence"
+    - pattern: "mutual indemnification"
+      score: GREEN
+      comment: "Mutual indemnification — acceptable"
+
+  confidentiality:
+    - pattern: "no expiration"
+      score: YELLOW
+      comment: "Perpetual confidentiality obligation — check scope"
+    - pattern: "perpetual"
+      score: YELLOW
+      comment: "Perpetual confidentiality — consider time limit"
+    - pattern: "3 years|5 years|two years|three years"
+      score: GREEN
+      comment: "Time-limited confidentiality — market standard"
+
+  data_protection:
+    - pattern: "sub-processor"
+      score: YELLOW
+      comment: "Sub-processor language — verify list and approval mechanism"
+    - pattern: "standard contractual clauses|SCC"
+      score: GREEN
+      comment: "SCCs referenced — GDPR transfer mechanism in place"
+    - pattern: "data processing agreement|DPA"
+      score: GREEN
+      comment: "DPA referenced — check if executed separately"
+
+  termination:
+    - pattern: "termination for convenience"
+      score: GREEN
+      comment: "Termination for convenience included — good"
+    - pattern: "no termination for convenience"
+      score: RED
+      comment: "No termination for convenience — locked in contract"
+    - pattern: "30 days|60 days|90 days"
+      score: GREEN
+      comment: "Standard notice period for termination"
