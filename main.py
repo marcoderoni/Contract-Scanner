@@ -1,8 +1,9 @@
-# Copyright (c) 2025 Marco De Roni. All rights reserved.
+# Copyright (c) 2026 Marco De Roni. All rights reserved.
 # Licensed under the MIT License — see LICENSE file for details.
 
 import os
 import sys
+import argparse
 from colorama import Fore, Style, init
 from scanner.extractor import extract_text, split_into_clauses
 from scanner.metadata import load_rules, extract_metadata
@@ -16,9 +17,18 @@ CONTRACTS_DIR = "contracts"
 OUTPUT_DIR = "output"
 
 
-def check_rules_file():
-    if not os.path.exists(RULES_PATH):
-        print(Fore.RED + f"\n❌ File regole non trovato: {RULES_PATH}")
+def parse_args():
+    parser = argparse.ArgumentParser(description="Contract Scanner — rule-based contract review")
+    parser.add_argument("--rules", type=str, help="Path to rules YAML file")
+    parser.add_argument("--contracts", type=str, help="Path to contracts folder")
+    parser.add_argument("--output", type=str, help="Path to output folder")
+    parser.add_argument("--format", choices=["docx", "pdf", "both"], default="docx", help="Output format")
+    return parser.parse_args()
+
+
+def check_rules_file(path: str):
+    if not os.path.exists(path):
+        print(Fore.RED + f"\n❌ File regole non trovato: {path}")
         print(Fore.YELLOW + "   Copia config/rules.example.yaml → config/rules.yaml e personalizzalo.")
         sys.exit(1)
 
@@ -94,17 +104,23 @@ def print_summary(results: list):
 
 
 def main():
-    check_rules_file()
-    rules = load_rules(RULES_PATH)
+    args = parse_args()
+
+    rules_path = args.rules or RULES_PATH
+    contracts_dir = args.contracts or CONTRACTS_DIR
+    output_dir = args.output or OUTPUT_DIR
+
+    check_rules_file(rules_path)
+    rules = load_rules(rules_path)
 
     contracts = [
-        os.path.join(CONTRACTS_DIR, f)
-        for f in os.listdir(CONTRACTS_DIR)
+        os.path.join(contracts_dir, f)
+        for f in os.listdir(contracts_dir)
         if f.lower().endswith((".pdf", ".docx"))
     ]
 
     if not contracts:
-        print(Fore.YELLOW + f"\n⚠️  Nessun contratto trovato in '{CONTRACTS_DIR}/'")
+        print(Fore.YELLOW + f"\n⚠️  Nessun contratto trovato in '{contracts_dir}/'")
         print("   Metti uno o più file PDF o DOCX nella cartella contracts/ e riprova.")
         return
 
