@@ -1,3 +1,6 @@
+# Copyright (c) 2025 Marco De Roni. All rights reserved.
+# Licensed under the MIT License — see LICENSE file for details.
+
 import re
 import yaml
 
@@ -5,7 +8,10 @@ import yaml
 def load_rules(rules_path: str) -> dict:
     """Carica le regole dal file YAML."""
     with open(rules_path, "r") as f:
-        return yaml.safe_load(f)
+        content = yaml.safe_load(f)
+    if not content or not isinstance(content, dict):
+        raise ValueError(f"File regole vuoto o non valido: {rules_path}")
+    return content
 
 
 def extract_metadata(text: str, rules: dict) -> dict:
@@ -13,7 +19,6 @@ def extract_metadata(text: str, rules: dict) -> dict:
     meta = rules.get("metadata", {})
     result = {}
 
-    # --- Parti ---
     for kw in meta.get("parties_keywords", []):
         match = re.search(
             rf"{re.escape(kw)}\s+([A-Z][^\n]{{5,80}})",
@@ -23,7 +28,6 @@ def extract_metadata(text: str, rules: dict) -> dict:
             result["parties"] = match.group(1).strip()
             break
 
-    # --- Data effettiva ---
     for kw in meta.get("date_keywords", []):
         match = re.search(
             rf"{re.escape(kw)}\s+([A-Z][a-z]{{2,8}}\s+\d{{1,2}},?\s+\d{{4}}|\d{{1,2}}[/\-\.]\d{{1,2}}[/\-\.]\d{{2,4}})",
@@ -33,7 +37,6 @@ def extract_metadata(text: str, rules: dict) -> dict:
             result["effective_date"] = match.group(1).strip()
             break
 
-    # --- Governing law ---
     for kw in meta.get("governing_law_keywords", []):
         match = re.search(
             rf"{re.escape(kw)}\s+(?:the\s+)?(?:laws?\s+of\s+)?([A-Z][a-zA-Z\s]{{3,40}})",
@@ -43,7 +46,6 @@ def extract_metadata(text: str, rules: dict) -> dict:
             result["governing_law"] = match.group(1).strip()
             break
 
-    # --- Jurisdiction ---
     for kw in meta.get("jurisdiction_keywords", []):
         match = re.search(
             rf"{re.escape(kw)}\s+(?:of\s+)?([A-Z][a-zA-Z\s]{{3,40}})",
@@ -53,7 +55,6 @@ def extract_metadata(text: str, rules: dict) -> dict:
             result["jurisdiction"] = match.group(1).strip()
             break
 
-    # --- Notice period ---
     match = re.search(
         r"(\d+)\s+(?:business\s+)?days['\s]*\s*(?:prior\s+)?(?:written\s+)?notice",
         text, re.IGNORECASE
@@ -61,7 +62,6 @@ def extract_metadata(text: str, rules: dict) -> dict:
     if match:
         result["notice_period"] = f"{match.group(1)} days"
 
-    # --- Durata ---
     for kw in meta.get("duration_keywords", []):
         match = re.search(
             rf"{re.escape(kw)}\s+(?:of\s+)?(\d+\s+(?:months?|years?)|one year|two years|three years)",
@@ -71,7 +71,6 @@ def extract_metadata(text: str, rules: dict) -> dict:
             result["duration"] = match.group(1).strip()
             break
 
-    # --- Auto-renewal ---
     for kw in meta.get("renewal_keywords", []):
         if re.search(re.escape(kw), text, re.IGNORECASE):
             result["auto_renewal"] = "Yes — auto-renewal clause detected"

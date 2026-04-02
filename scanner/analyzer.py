@@ -1,12 +1,11 @@
+# Copyright (c) 2025 Marco De Roni. All rights reserved.
+# Licensed under the MIT License — see LICENSE file for details.
+
 import re
-import yaml
 
 
 def check_required_clauses(text: str, rules: dict) -> list:
-    """
-    Verifica se le clausole obbligatorie sono presenti nel testo.
-    Restituisce lista di clausole mancanti.
-    """
+    """Verifica se le clausole obbligatorie sono presenti nel testo."""
     required = rules.get("required_clauses", [])
     missing = []
 
@@ -24,10 +23,7 @@ def check_required_clauses(text: str, rules: dict) -> list:
 
 
 def score_clause(clause_text: str, risk_rules: list) -> list:
-    """
-    Applica le regole di scoring a un blocco di testo.
-    Restituisce lista di match con score e commento.
-    """
+    """Applica le regole di scoring a un blocco di testo."""
     findings = []
 
     for rule in risk_rules:
@@ -58,27 +54,18 @@ def extract_excerpt(text: str, pattern: str, context: int = 100) -> str:
 
 
 def analyze(full_text: str, clauses: dict, rules: dict) -> dict:
-    """
-    Analisi completa del contratto:
-    - clausole mancanti
-    - scoring R/Y/G per ogni categoria
-    """
+    """Analisi completa: clausole mancanti + scoring R/Y/G."""
     risk_rules = rules.get("risk_rules", {})
     results = {}
 
-    # Clausole mancanti
     results["missing_clauses"] = check_required_clauses(full_text, rules)
-
-    # Scoring per categoria
     results["findings"] = {}
 
     for category, category_rules in risk_rules.items():
-        # Cerca nel testo completo per ogni categoria
         findings = score_clause(full_text, category_rules)
         if findings:
             results["findings"][category] = findings
 
-    # Score globale del contratto
     all_scores = [
         f["score"]
         for cat_findings in results["findings"].values()

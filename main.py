@@ -1,3 +1,6 @@
+# Copyright (c) 2025 Marco De Roni. All rights reserved.
+# Licensed under the MIT License — see LICENSE file for details.
+
 import os
 import sys
 from colorama import Fore, Style, init
@@ -24,21 +27,26 @@ def scan_contract(path: str, rules: dict) -> dict:
     name = os.path.basename(path)
     print(Fore.CYAN + f"\n📄 Scanning: {name}")
 
-    # 1. Estrai testo
     print("   → Estrazione testo...")
     text = extract_text(path)
     clauses = split_into_clauses(text)
     print(f"   → {len(clauses)} sezioni rilevate")
 
-    # 2. Metadati
+    # Sanitize PII
+    try:
+        from scanner.sanitizer import sanitize, desanitize
+        text, pii_mapping = sanitize(text)
+        print(f"   → PII sanitizzato: {len(pii_mapping)} entità redatte")
+    except Exception as e:
+        pii_mapping = {}
+        print(f"   → PII sanitization skipped: {e}")
+
     print("   → Estrazione metadati...")
     metadata = extract_metadata(text, rules)
 
-    # 3. Analisi R/Y/G
     print("   → Analisi clausole...")
     analysis = analyze(text, clauses, rules)
 
-    # 4. Report
     print("   → Generazione report Word...")
     report_path = generate_report(name, metadata, analysis, OUTPUT_DIR)
 
@@ -89,7 +97,6 @@ def main():
     check_rules_file()
     rules = load_rules(RULES_PATH)
 
-    # Trova tutti i contratti nella cartella contracts/
     contracts = [
         os.path.join(CONTRACTS_DIR, f)
         for f in os.listdir(CONTRACTS_DIR)

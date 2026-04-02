@@ -1,6 +1,10 @@
+# Copyright (c) 2025 Marco De Roni. All rights reserved.
+# Licensed under the MIT License — see LICENSE file for details.
+
 import pdfplumber
 import docx
 import os
+import re
 
 
 def extract_text_from_pdf(path: str) -> str:
@@ -36,7 +40,6 @@ def split_into_clauses(text: str) -> dict:
     Divide il testo in sezioni basandosi su pattern comuni
     di numerazione clausole (1., 2., 1.1, Article 1, ecc.)
     """
-    import re
     clauses = {}
     current_title = "preamble"
     current_text = []

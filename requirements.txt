@@ -3,3 +3,6 @@ python-docx
 pyyaml
 tqdm
 colorama
+presidio-analyzer
+presidio-anonymizer
+spacy
