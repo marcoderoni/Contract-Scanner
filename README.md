@@ -30,6 +30,7 @@ enterprise contracting, GDPR compliance, and risk assessment.
   color-coded findings and metadata table
 - ⚙️ **Fully customisable playbook** — define your own rules in YAML,  
   no code changes needed
+  - 🔒 **PII sanitization** — automatically redacts names, dates, emails and sensitive entities before analysis, then restores them in the final report
 
 ---
 
@@ -152,6 +153,7 @@ Scores:
 - `contracts/` is excluded from git — your documents never leave your machine
 - `config/rules.yaml` is excluded from git — your playbook stays private
 - All processing is local — no data is sent to external APIs
+- PII redaction via Microsoft Presidio — sensitive entities anonymised before leaving your machine
 
 ---
 
