@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="terminal" baseProfile="full" viewBox="0 0 1520 274" width="1520" version="1.1">
+    <defs>
+        <termtosvg:template_settings xmlns:termtosvg="https://github.com/nbedos/termtosvg">
+            <termtosvg:screen_geometry columns="190" rows="16"/>
+            <termtosvg:animation type="css"/>
+        </termtosvg:template_settings>
+        <style type="text/css" id="generated-style"><![CDATA[#screen {
+                font-family: 'DejaVu Sans Mono', monospace;
+                font-style: normal;
+                font-size: 14px;
+            }
+
+        text {
+            dominant-baseline: text-before-edge;
+            white-space: pre;
+        }
+    
+            :root {
+                --animation-duration: 8306ms;
+            }
+
+            @keyframes roll {
+                0.000%{transform:translateY(0px)}
+28.305%{transform:translateY(-306px)}
+36.504%{transform:translateY(-612px)}
+86.781%{transform:translateY(-918px)}
+86.889%{transform:translateY(-1224px)}
+87.443%{transform:translateY(-1530px)}
+87.936%{transform:translateY(-1836px)}
+87.961%{transform:translateY(-2142px)}
+100.000%{transform:translateY(-2142px)}
+            }
+
+            #screen_view {
+                animation-duration: 8306ms;
+                animation-iteration-count:infinite;
+                animation-name:roll;
+                animation-timing-function: steps(1,end);
+                animation-fill-mode: forwards;
+            }
+        ]]></style>
+        <style type="text/css" id="user-style">
+            /* The colors defined below are the default 16 colors used for rendering text of the terminal. Adjust
+               them as needed.
+               PowerShell colors based on https://en.wikipedia.org/wiki/ANSI_escape_code#Colors */
+            .foreground {fill: #cccccc;}
+            .background {fill: #0c0c0c;}
+            .color0 {fill: #0c0c0c;}
+            .color1 {fill: #c50f1f;}
+            .color2 {fill: #13a10e;}
+            .color3 {fill: #c19c00;}
+            .color4 {fill: #0037da;}
+            .color5 {fill: #881798;}
+            .color6 {fill: #3a96dd;}
+            .color7 {fill: #cccccc;}
+            .color8 {fill: #767676;}
+            .color9 {fill: #e74856;}
+            .color10 {fill: #16c60c;}
+            .color11 {fill: #f9f1a5;}
+            .color12 {fill: #3b78ff;}
+            .color13 {fill: #b4009e;}
+            .color14 {fill: #61d6d6;}
+            .color15 {fill: #f2f2f2;}
+        </style>
+    </defs>
+    <svg id="screen" width="1520" height="272" viewBox="0 0 1520 272" preserveAspectRatio="xMidYMin slice">
+    <rect class="background" height="100%" width="100%" x="0" y="0"/><defs><g id="g1"><text x="0" textLength="328" font-weight="bold" class="color15">=== Contract Scanner | 1 file trovati ===</text></g><g id="g2"><text x="0" textLength="400" class="color6">&#128196; Scanning: Lic_Online_TOMA_v062223_CH_CA_ENG.pdf</text></g><g id="g3"><text x="0" textLength="192" class="foreground">   &#8594; Estrazione testo...</text></g><g id="g4"><text x="0" textLength="8" class="background"> </text></g><g id="g5"><text x="0" textLength="200" class="foreground">   &#8594; 114 sezioni rilevate</text></g><g id="g6"><text x="0" textLength="1520" class="foreground">/Users/marco.deroni/contract-scanner/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compil</text></g><g id="g7"><text x="0" textLength="616" class="foreground">ed with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020</text></g><g id="g8"><text x="0" textLength="128" class="foreground">  warnings.warn(</text></g><g id="g9"><text x="0" textLength="320" class="foreground">   &#8594; PII sanitizzato: 101 entit&#224; redatte</text></g><g id="g10"><text x="0" textLength="216" class="foreground">   &#8594; Estrazione metadati...</text></g><g id="g11"><text x="0" textLength="192" class="foreground">   &#8594; Analisi clausole...</text></g><g id="g12"><text x="0" textLength="248" class="foreground">   &#8594; Generazione report Word...</text></g><g id="g13"><text x="0" textLength="480" font-weight="bold" class="color15">============================================================</text></g><g id="g14"><text x="0" textLength="112" font-weight="bold" class="color15">  SCAN SUMMARY</text></g><g id="g15"><text x="0" textLength="480" class="foreground">============================================================</text></g><g id="g16"><text x="0" textLength="24" class="foreground">&#128308; </text><text x="24" textLength="296" class="color1">Lic_Online_TOMA_v062223_CH_CA_ENG.pdf</text></g><g id="g17"><text x="0" textLength="104" class="foreground">   Overall:  </text><text x="104" textLength="24" class="color1">RED</text></g><g id="g18"><text x="0" textLength="104" class="foreground">   Missing:  </text><text x="104" textLength="368" class="color1">Gross Negligence / Wilful Misconduct Carve-out</text></g><g id="g19"><text x="0" textLength="432" class="foreground">   Law:      Swiss law without reference to its confli</text></g><g id="g20"><text x="0" textLength="552" class="foreground">   Report:   output/report_Lic_Online_TOMA_v062223_CH_CA_ENG.pdf.docx</text></g><g id="g21"><text x="0" textLength="392" class="color2">&#9989; 1 contratto/i analizzato/i. Report in: output/</text></g></defs><g id="screen_view"><g><use xlink:href="#g1" y="17"/><use xlink:href="#g2" y="51"/><use xlink:href="#g3" y="68"/><rect x="0" y="85" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="85"/></g><g><use xlink:href="#g1" y="323"/><use xlink:href="#g2" y="357"/><use xlink:href="#g3" y="374"/><use xlink:href="#g5" y="391"/><rect x="0" y="408" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="408"/></g><g><use xlink:href="#g1" y="629"/><use xlink:href="#g2" y="663"/><use xlink:href="#g3" y="680"/><use xlink:href="#g5" y="697"/><use xlink:href="#g6" y="714"/><use xlink:href="#g7" y="731"/><use xlink:href="#g8" y="748"/><rect x="0" y="765" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="765"/></g><g><use xlink:href="#g1" y="935"/><use xlink:href="#g2" y="969"/><use xlink:href="#g3" y="986"/><use xlink:href="#g5" y="1003"/><use xlink:href="#g6" y="1020"/><use xlink:href="#g7" y="1037"/><use xlink:href="#g8" y="1054"/><use xlink:href="#g9" y="1071"/><use xlink:href="#g10" y="1088"/><rect x="0" y="1105" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="1105"/></g><g><use xlink:href="#g1" y="1241"/><use xlink:href="#g2" y="1275"/><use xlink:href="#g3" y="1292"/><use xlink:href="#g5" y="1309"/><use xlink:href="#g6" y="1326"/><use xlink:href="#g7" y="1343"/><use xlink:href="#g8" y="1360"/><use xlink:href="#g9" y="1377"/><use xlink:href="#g10" y="1394"/><use xlink:href="#g11" y="1411"/><rect x="0" y="1428" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="1428"/></g><g><use xlink:href="#g1" y="1547"/><use xlink:href="#g2" y="1581"/><use xlink:href="#g3" y="1598"/><use xlink:href="#g5" y="1615"/><use xlink:href="#g6" y="1632"/><use xlink:href="#g7" y="1649"/><use xlink:href="#g8" y="1666"/><use xlink:href="#g9" y="1683"/><use xlink:href="#g10" y="1700"/><use xlink:href="#g11" y="1717"/><use xlink:href="#g12" y="1734"/><rect x="0" y="1751" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="1751"/></g><g><use xlink:href="#g3" y="1836"/><use xlink:href="#g5" y="1853"/><use xlink:href="#g6" y="1870"/><use xlink:href="#g7" y="1887"/><use xlink:href="#g8" y="1904"/><use xlink:href="#g9" y="1921"/><use xlink:href="#g10" y="1938"/><use xlink:href="#g11" y="1955"/><use xlink:href="#g12" y="1972"/><use xlink:href="#g13" y="2006"/><use xlink:href="#g14" y="2023"/><use xlink:href="#g15" y="2040"/><use xlink:href="#g16" y="2074"/><rect x="0" y="2091" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="2091"/></g><g><use xlink:href="#g11" y="2142"/><use xlink:href="#g12" y="2159"/><use xlink:href="#g13" y="2193"/><use xlink:href="#g14" y="2210"/><use xlink:href="#g15" y="2227"/><use xlink:href="#g16" y="2261"/><use xlink:href="#g17" y="2278"/><use xlink:href="#g18" y="2295"/><use xlink:href="#g19" y="2312"/><use xlink:href="#g20" y="2329"/><use xlink:href="#g15" y="2363"/><use xlink:href="#g21" y="2380"/><rect x="0" y="2397" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="2397"/></g></g></svg>
+</svg>
