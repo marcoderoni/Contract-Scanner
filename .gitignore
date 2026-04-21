@@ -6,4 +6,4 @@ config/rules.yaml
 contracts/
 output/
 *.pdf
-*.docx
+*.docxaudit_log.jsonl

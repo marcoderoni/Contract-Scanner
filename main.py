@@ -60,6 +60,18 @@ def scan_contract(path: str, rules: dict) -> dict:
     print("   → Generazione report Word...")
     report_path = generate_report(name, metadata, analysis, OUTPUT_DIR)
 
+    # Audit log
+    try:
+        from scanner.audit import log_analysis
+        log_analysis(
+            contract_name=name,
+            overall_score=analysis.get("overall_score", "UNKNOWN"),
+            missing_clauses=analysis.get("missing_clauses", []),
+            metadata=metadata
+        )
+    except Exception as e:
+        print(f"   ⚠️  Audit log skipped: {e}")
+
     return {
         "name": name,
         "metadata": metadata,
