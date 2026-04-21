@@ -6,3 +6,6 @@ colorama
 presidio-analyzer
 presidio-anonymizer
 spacy
+streamlit
+pandas
+streamlit
