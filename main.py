@@ -43,12 +43,12 @@ def scan_contract(path: str, rules: dict) -> dict:
     print(f"   → {len(clauses)} sezioni rilevate")
 
     # Sanitize PII
+    pii_mapping = {}
     try:
-        from scanner.sanitizer import sanitize, desanitize
+        from scanner.sanitizer import sanitize
         text, pii_mapping = sanitize(text)
         print(f"   → PII sanitizzato: {len(pii_mapping)} entità redatte")
     except Exception as e:
-        pii_mapping = {}
         print(f"   → PII sanitization skipped: {e}")
 
     print("   → Estrazione metadati...")
@@ -57,8 +57,14 @@ def scan_contract(path: str, rules: dict) -> dict:
     print("   → Analisi clausole...")
     analysis = analyze(text, clauses, rules)
 
+    # Build PII summary
+    pii_summary = {"total_entities": len(pii_mapping), "breakdown": {}}
+    for placeholder in pii_mapping.keys():
+        entity_type = placeholder.split("_")[0].replace("[", "")
+        pii_summary["breakdown"][entity_type] = pii_summary["breakdown"].get(entity_type, 0) + 1
+
     print("   → Generazione report Word...")
-    report_path = generate_report(name, metadata, analysis, OUTPUT_DIR)
+    report_path = generate_report(name, metadata, analysis, OUTPUT_DIR, pii_summary=pii_summary)
 
     # Audit log
     try:

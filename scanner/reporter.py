@@ -1,4 +1,4 @@
-# Copyright (c) 2025 Marco De Roni. All rights reserved.
+# Copyright (c) 2026 Marco De Roni. All rights reserved.
 # Licensed under the MIT License — see LICENSE file for details.
 
 import os
@@ -46,7 +46,8 @@ def generate_report(
     contract_name: str,
     metadata: dict,
     analysis: dict,
-    output_dir: str
+    output_dir: str,
+    pii_summary: dict = None
 ) -> str:
     """Genera un report Word professionale."""
 
@@ -68,6 +69,30 @@ def generate_report(
 
     doc.add_paragraph()
 
+    # --- PII Redaction Summary ---
+    if pii_summary and pii_summary.get("total_entities", 0) > 0:
+        add_heading(doc, "Privacy & PII Redaction Summary", level=1)
+        total = pii_summary.get("total_entities", 0)
+        breakdown = pii_summary.get("breakdown", {})
+
+        doc.add_paragraph(
+            f"Before analysis, {total} sensitive entities were automatically "
+            f"redacted and restored in this report."
+        )
+
+        if breakdown:
+            table = doc.add_table(rows=1, cols=2)
+            table.style = "Table Grid"
+            table.rows[0].cells[0].text = "Entity Type"
+            table.rows[0].cells[1].text = "Count"
+            for entity_type, count in sorted(breakdown.items()):
+                row = table.add_row().cells
+                row[0].text = entity_type
+                row[1].text = str(count)
+
+        doc.add_paragraph()
+
+    # --- Overall Risk ---
     overall = analysis.get("overall_score", "UNKNOWN")
     add_heading(doc, "Overall Risk Assessment", level=1)
     add_colored_paragraph(
@@ -77,6 +102,7 @@ def generate_report(
     )
     doc.add_paragraph()
 
+    # --- Metadata ---
     add_heading(doc, "Contract Metadata", level=1)
     table = doc.add_table(rows=1, cols=2)
     table.style = "Table Grid"
@@ -101,6 +127,7 @@ def generate_report(
 
     doc.add_paragraph()
 
+    # --- Missing Clauses ---
     add_heading(doc, "Missing Clauses", level=1)
     missing = analysis.get("missing_clauses", [])
     if missing:
@@ -114,6 +141,7 @@ def generate_report(
 
     doc.add_paragraph()
 
+    # --- Clause Risk Analysis ---
     add_heading(doc, "Clause Risk Analysis", level=1)
     findings = analysis.get("findings", {})
 
