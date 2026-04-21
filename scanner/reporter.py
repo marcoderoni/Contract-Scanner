@@ -151,9 +151,10 @@ def generate_report(
         for category, items in findings.items():
             add_heading(doc, category.replace("_", " ").title(), level=2)
             for item in items:
+                conf = item.get("confidence", "")
                 add_colored_paragraph(
                     doc, item["score"],
-                    item["comment"],
+                    f"{item['comment']} [{conf} confidence]",
                     item["score"]
                 )
                 if item.get("excerpt"):
