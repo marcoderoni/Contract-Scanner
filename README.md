@@ -39,6 +39,11 @@ enterprise contracting, GDPR compliance, and risk assessment.
 - ⚙️ **Fully customisable playbook** — define your own rules in YAML,  
   no code changes needed
   - 🔒 **PII sanitization** — automatically redacts names, dates, emails and sensitive entities before analysis, then restores them in the final report
+  - 🌐 **Streamlit web app** — browser interface, no command line required
+- 📋 **Audit log** — append-only JSONL log with SHA256 integrity hash
+- 🔒 **PII redaction report** — entities redacted before analysis, restored in report
+- 🎯 **Confidence score** — HIGH/MEDIUM/LOW rating per risk finding
+- 📄 **Clause extraction** — extracts exact clause text for each finding
 
 ---
 
